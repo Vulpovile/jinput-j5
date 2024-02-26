@@ -36,7 +36,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -50,11 +49,11 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 public final class ControllerEventTest extends JFrame {
-	@Serial
+
 	private static final long serialVersionUID = -8266185848160199092L;
 
 	private static abstract class AxisPanel extends JPanel {
-		@Serial
+
 		private static final long serialVersionUID = -6200599064870672000L;
 		transient Component axis;
 		float data;
@@ -79,7 +78,7 @@ public final class ControllerEventTest extends JFrame {
 	}
 
 	private static class DigitalAxisPanel extends AxisPanel {
-		@Serial
+
 		private static final long serialVersionUID = -4729666037860134626L;
 		JLabel digitalState = new JLabel("<unread>");
 
@@ -104,7 +103,7 @@ public final class ControllerEventTest extends JFrame {
 	}
 
 	private static class DigitalHatPanel extends AxisPanel {
-		@Serial
+
 		private static final long serialVersionUID = -6582605379682496832L;
 		JLabel digitalState = new JLabel("<unread>");
 
@@ -149,7 +148,7 @@ public final class ControllerEventTest extends JFrame {
 		}
 	}
 	private static class AnalogAxisPanel extends AxisPanel {
-		@Serial private static final long serialVersionUID = 7536173405896285590L;
+		private static final long serialVersionUID = 7536173405896285590L;
 		JLabel analogState = new JLabel("<unread>");
 
 		public AnalogAxisPanel(Component ax) {
@@ -169,10 +168,10 @@ public final class ControllerEventTest extends JFrame {
 
 
 	private static class ControllerWindow extends JFrame {
-		@Serial
+
 		private static final long serialVersionUID = 8623977198558568961L;
 		transient Controller ca;
-		transient Map<Component, AxisPanel> axes_to_panels = new HashMap<>();
+		transient Map<Component, AxisPanel> axes_to_panels = new HashMap<Component, AxisPanel>();
 		boolean disabled = false;
 
 		public ControllerWindow(JFrame frame,Controller ca){
@@ -248,7 +247,7 @@ public final class ControllerEventTest extends JFrame {
 	}
 
 	static final long HEARTBEATMS =100; // 10th of a second
-	transient List<ControllerWindow> controllers = new ArrayList<>();
+	transient List<ControllerWindow> controllers = new ArrayList<ControllerWindow>();
 
 	public ControllerEventTest() {
 		super("Controller Event Test. Version: " + Version.getVersion());
@@ -258,7 +257,8 @@ public final class ControllerEventTest extends JFrame {
 			makeController(ca[i]);
 		}
 
-		new Thread(() -> {
+		new Thread(){
+			public void run(){
 				try {
 					while(true){
 						for(Iterator<ControllerWindow> i=controllers.iterator();i.hasNext();){
@@ -273,7 +273,8 @@ public final class ControllerEventTest extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-		}).start();
+			}
+		}.start();
 		pack();
 		setSize(400,400);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

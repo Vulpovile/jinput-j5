@@ -48,7 +48,7 @@ import java.util.List;
  * @version 1.0
  */
 final class IDirectInput {
-	private final List<IDirectInputDevice> devices = new ArrayList<>();
+	private final List<IDirectInputDevice> devices = new ArrayList<IDirectInputDevice>();
 	private final long idirectinput_address;
 	private final DummyWindow window;
 

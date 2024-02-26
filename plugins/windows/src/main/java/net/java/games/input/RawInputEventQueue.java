@@ -126,7 +126,7 @@ final class RawInputEventQueue {
 			}
 			if (exception != null)
 				return;
-			Set<RawDeviceInfo> active_infos = new HashSet<>();
+			Set<RawDeviceInfo> active_infos = new HashSet<RawDeviceInfo>();
 			try {
 				for (int i = 0; i < devices.size(); i++) {
 					RawDevice device = devices.get(i);

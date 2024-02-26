@@ -44,8 +44,8 @@ final class AWTMouse extends Mouse implements AWTEventListener {
 	private final static int EVENT_Y = 2;
 	private final static int EVENT_BUTTON = 4;
 
-	private final List<AWTEvent> awt_events = new ArrayList<>();
-	private final List<AWTEvent> processed_awt_events = new ArrayList<>();
+	private final List<AWTEvent> awt_events = new ArrayList<AWTEvent>();
+	private final List<AWTEvent> processed_awt_events = new ArrayList<AWTEvent>();
 
 	private int event_state = EVENT_X;
 

@@ -171,7 +171,7 @@ final class OSXHIDDevice {
 	}
 	
 	public final List<OSXHIDElement> getElements() {
-		List<OSXHIDElement> elements = new ArrayList<>();
+		List<OSXHIDElement> elements = new ArrayList<OSXHIDElement>();
 		addElements(elements, properties);
 		return elements;
 	}

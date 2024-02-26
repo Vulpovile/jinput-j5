@@ -106,7 +106,7 @@ public final class LinuxEnvironmentPlugin extends ControllerEnvironment implemen
 
     private final static Component[] createComponents(List<LinuxEventComponent> event_components, LinuxEventDevice device) {
         LinuxEventComponent[][] povs = new LinuxEventComponent[4][2];
-        List<LinuxComponent> components = new ArrayList<>();
+        List<LinuxComponent> components = new ArrayList<LinuxComponent>();
         for(int i = 0; i < event_components.size(); i++) {
             LinuxEventComponent event_component = event_components.get(i);
             Component.Identifier identifier = event_component.getIdentifier();
@@ -197,9 +197,9 @@ public final class LinuxEnvironmentPlugin extends ControllerEnvironment implemen
     }
 
     private final Controller[] enumerateControllers() {
-        List<Controller> controllers = new ArrayList<>();
-        List<Controller> eventControllers = new ArrayList<>();
-        List<Controller> jsControllers = new ArrayList<>();
+        List<Controller> controllers = new ArrayList<Controller>();
+        List<Controller> eventControllers = new ArrayList<Controller>();
+        List<Controller> jsControllers = new ArrayList<Controller>();
         enumerateEventControllers(eventControllers);
         enumerateJoystickControllers(jsControllers);
 
@@ -314,7 +314,7 @@ public final class LinuxEnvironmentPlugin extends ControllerEnvironment implemen
     }
 
     private final static Controller createJoystickFromJoystickDevice(LinuxJoystickDevice device) {
-        List<AbstractComponent> components = new ArrayList<>();
+        List<AbstractComponent> components = new ArrayList<AbstractComponent>();
         byte[] axisMap = device.getAxisMap();
         char[] buttonMap = device.getButtonMap();
         LinuxJoystickAxis[] hatBits = new LinuxJoystickAxis[6];
@@ -402,14 +402,20 @@ public final class LinuxEnvironmentPlugin extends ControllerEnvironment implemen
             log("dir " + dir.getName() + " exists: " + dir.exists() + ", is writable: " + dir.isDirectory());
             files = new File[]{};
         } else {
-            Arrays.sort(files, Comparator.comparing(File::getName));
+            Arrays.sort(files, new Comparator<File>(){
+				public int compare(File arg0, File arg1) {
+					return arg0.getName().compareTo(arg1.getName());
+				}});
         }
         return files;
     }
 
     private final void enumerateEventControllers(List<Controller> controllers) {
         final File dev = new File("/dev/input");
-        File[] event_device_files = listFiles(dev, (File dir, String name) -> name.startsWith("event"));
+        File[] event_device_files = listFiles(dev, new FilenameFilter(){
+			public boolean accept(File arg0, String arg1) {
+				return arg0.getName().startsWith("event");
+			}});
 
         if(event_device_files == null)
             return;

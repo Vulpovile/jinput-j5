@@ -50,7 +50,7 @@ final class DataQueue<T> {
 		for (int i = 0; i < elements.length; i++) {
 			try {
 				elements[i] = element_type.getDeclaredConstructor().newInstance();
-			} catch (InstantiationException|IllegalAccessException|NoSuchMethodException|InvocationTargetException e) {
+			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
 		}

@@ -52,7 +52,7 @@ final class RawKeyboard extends Keyboard {
 	}
 
 	private static Component[] createKeyboardComponents(RawDevice device) {
-		List<Component> components = new ArrayList<>();
+		List<Component> components = new ArrayList<Component>();
 		Field[] vkey_fields = RawIdentifierMap.class.getFields();
 		for (int i = 0; i < vkey_fields.length; i++) {
 			Field vkey_field = vkey_fields[i];

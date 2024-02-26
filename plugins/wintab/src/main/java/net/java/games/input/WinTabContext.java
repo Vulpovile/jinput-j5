@@ -47,7 +47,7 @@ public class WinTabContext {
 	
 	public synchronized void open() {
 		this.hCTX = nOpen(window.getHwnd());
-		List<WinTabDevice> devices = new ArrayList<>();
+		List<WinTabDevice> devices = new ArrayList<WinTabDevice>();
 		
 		int numSupportedDevices = nGetNumberOfSupportedDevices();
 		for(int i=0;i<numSupportedDevices;i++) {

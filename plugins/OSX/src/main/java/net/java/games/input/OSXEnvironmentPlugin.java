@@ -139,7 +139,7 @@ public final class OSXEnvironmentPlugin extends ControllerEnvironment implements
 	}
 
 	private final static Keyboard createKeyboardFromDevice(OSXHIDDevice device, List<OSXHIDElement> elements) throws IOException {
-		List<OSXComponent> components = new ArrayList<>();
+		List<OSXComponent> components = new ArrayList<OSXComponent>();
 		OSXHIDQueue queue = device.createQueue(AbstractController.EVENT_QUEUE_DEPTH);
 		try {
 			addElements(queue, elements, components, false);
@@ -153,7 +153,7 @@ public final class OSXEnvironmentPlugin extends ControllerEnvironment implements
 	}
 
 	private final static Mouse createMouseFromDevice(OSXHIDDevice device, List<OSXHIDElement> elements) throws IOException {
-		List<OSXComponent> components = new ArrayList<>();
+		List<OSXComponent> components = new ArrayList<OSXComponent>();
 		OSXHIDQueue queue = device.createQueue(AbstractController.EVENT_QUEUE_DEPTH);
 		try {
 			addElements(queue, elements, components, true);
@@ -173,7 +173,7 @@ public final class OSXEnvironmentPlugin extends ControllerEnvironment implements
 	}
 	
 	private final static AbstractController createControllerFromDevice(OSXHIDDevice device, List<OSXHIDElement> elements, Controller.Type type) throws IOException {
-		List<OSXComponent> components = new ArrayList<>();
+		List<OSXComponent> components = new ArrayList<OSXComponent>();
 		OSXHIDQueue queue = device.createQueue(AbstractController.EVENT_QUEUE_DEPTH);
 		try {
 			addElements(queue, elements, components, false);
@@ -209,7 +209,7 @@ public final class OSXEnvironmentPlugin extends ControllerEnvironment implements
 	}
 
 	private final static Controller[] enumerateControllers() {
-		List<Controller> controllers = new ArrayList<>();
+		List<Controller> controllers = new ArrayList<Controller>();
 		try {
 			OSXHIDDeviceIterator it = new OSXHIDDeviceIterator();
 			try {

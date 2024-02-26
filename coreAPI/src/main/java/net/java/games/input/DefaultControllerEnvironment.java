@@ -36,7 +36,9 @@ import net.java.games.util.plugins.Plugins;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
@@ -51,6 +53,8 @@ class DefaultControllerEnvironment extends ControllerEnvironment {
 	static String libPath;
 	
 	private static Logger log = Logger.getLogger(DefaultControllerEnvironment.class.getName());
+	private static final HashSet<String> knownWindows = new HashSet<String>(Arrays.asList(new String[]{"Windows XP", "Windows Vista", "Windows 7", "Windows 8", "Windows 8", "Windows 10", "Windows 11"})); 
+
 	
 	/**
 	 * Static utility method for loading native libraries.
@@ -72,7 +76,7 @@ class DefaultControllerEnvironment extends ControllerEnvironment {
      */
     private ArrayList<Controller> controllers;
     
-	private Collection<String> loadedPluginNames = new ArrayList<>();
+	private Collection<String> loadedPluginNames = new ArrayList<String>();
 
     /**
      * Public no-arg constructor.
@@ -87,49 +91,34 @@ class DefaultControllerEnvironment extends ControllerEnvironment {
     public Controller[] getControllers() {
         if (controllers == null) {
             // Controller list has not been scanned.
-            controllers = new ArrayList<>();
+            controllers = new ArrayList<Controller>();
             scanControllers();
             //Check the properties for specified controller classes
             String pluginClasses = System.getProperty("jinput.plugins", "") + " " + System.getProperty("net.java.games.input.plugins", "");
 			if(!System.getProperty("jinput.useDefaultPlugin", "true").toLowerCase().trim().equals("false") && !System.getProperty("net.java.games.input.useDefaultPlugin", "true").toLowerCase().trim().equals("false")) {
 				String osName = System.getProperty("os.name", "").trim();
 
-				switch(osName) {
-					case "Linux": {
+				if(osName.equals("Linux")){
 						pluginClasses = pluginClasses + " net.java.games.input.LinuxEnvironmentPlugin";
-						break;
-					}
-
-					case "Mac OS X": {
-						pluginClasses = pluginClasses + " net.java.games.input.OSXEnvironmentPlugin";
-						break;
-					}
-
-					case "Windows 98":
-					case "Windows 2000": {
-						pluginClasses = pluginClasses + " net.java.games.input.DirectInputEnvironmentPlugin";
-						break;
-					}
-
-					case "Windows XP":
-					case "Windows Vista":
-					case "Windows 7":
-					case "Windows 8":
-					case "Windows 8.1":
-					case "Windows 10":
-					case "Windows 11": {
+				}
+				else if(osName.equals("Mac OS X"))
+				{
+					pluginClasses = pluginClasses + " net.java.games.input.OSXEnvironmentPlugin";
+				}
+				else if(osName.equals("Windows 98") || osName.equals("Windows 2000"))
+				{
+					pluginClasses = pluginClasses + " net.java.games.input.DirectInputEnvironmentPlugin";
+				}
+				else if(knownWindows.contains(osName))
+				{
+					pluginClasses = pluginClasses + " net.java.games.input.DirectAndRawInputEnvironmentPlugin";
+				} else{
+					if (osName.startsWith("Windows")) {
+						log.warning("Found unknown Windows version: " + osName);
+						log.warning("Attempting to use default windows plug-in.");
 						pluginClasses = pluginClasses + " net.java.games.input.DirectAndRawInputEnvironmentPlugin";
-						break;
-					}
-
-					default: {
-						if (osName.startsWith("Windows")) {
-							log.warning("Found unknown Windows version: " + osName);
-							log.warning("Attempting to use default windows plug-in.");
-							pluginClasses = pluginClasses + " net.java.games.input.DirectAndRawInputEnvironmentPlugin";
-						} else {
-							log.warning("Trying to use default plugin, OS name " + osName + " not recognised");
-						}
+					} else {
+						log.warning("Trying to use default plugin, OS name " + osName + " not recognised");
 					}
 				}
 			}

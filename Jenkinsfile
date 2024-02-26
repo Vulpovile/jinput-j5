@@ -3,7 +3,7 @@ pipeline {
     triggers { pollSCM('H/15 * * * *') }
     tools {
         maven 'Maven 3.9.5'
-        jdk 'OpenJDK 16'
+        jdk 'OpenJDK 5'
     }
     options { buildDiscarder(logRotator(numToKeepStr: '5')) }
     parameters {
@@ -97,7 +97,7 @@ pipeline {
                 sh 'echo $GPG_OWNERTRUST | base64 --decode | gpg --import-ownertrust'
                 withMaven(
                         maven: 'Maven 3.9.5',
-                        jdk: 'OpenJDK 16',
+                        jdk: 'OpenJDK 5',
                         globalMavenSettingsConfig: 'global-maven-settings-ossrh'
                 ) {
                     sh "mvn -P windows,linux,osx,wintab -Dmaven.antrun.skip -Dmaven.test.skip -DskipTests -DskipITs deploy"
@@ -122,7 +122,7 @@ pipeline {
                 sh 'echo $GPG_OWNERTRUST | base64 --decode | gpg --import-ownertrust'
                 withMaven(
                         maven: 'Maven 3.9.5',
-                        jdk: 'OpenJDK 16',
+                        jdk: 'OpenJDK 5',
                         globalMavenSettingsConfig: 'global-maven-settings-ossrh'
                 ) {
                     sh "mvn -P windows,linux,osx,wintab versions:set -DremoveSnapshot"

@@ -25,6 +25,7 @@
  */
 package net.java.games.input;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 /**
  * @author elias
  */
-final class LinuxJoystickDevice implements LinuxDevice,AutoCloseable {
+final class LinuxJoystickDevice implements LinuxDevice, Closeable {
 	public final static int JS_EVENT_BUTTON     = 0x01;    /* button pressed/released */
 	public final static int JS_EVENT_AXIS       = 0x02;    /* joystick moved */
 	public final static int JS_EVENT_INIT       = 0x80;    /* initial state of device */
@@ -46,8 +47,8 @@ final class LinuxJoystickDevice implements LinuxDevice,AutoCloseable {
 	private final Event event = new Event();
 	private final LinuxJoystickButton[] buttons;
 	private final LinuxJoystickAxis[] axes;
-	private final Map<Integer, LinuxJoystickPOV> povXs = new HashMap<>();
-	private final Map<Integer, LinuxJoystickPOV> povYs = new HashMap<>();
+	private final Map<Integer, LinuxJoystickPOV> povXs = new HashMap<Integer, LinuxJoystickPOV>();
+	private final Map<Integer, LinuxJoystickPOV> povYs = new HashMap<Integer, LinuxJoystickPOV>();
 	private final byte[] axisMap;
 	private final char[] buttonMap;
 

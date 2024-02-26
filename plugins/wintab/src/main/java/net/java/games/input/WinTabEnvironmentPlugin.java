@@ -63,7 +63,7 @@ public final class WinTabEnvironmentPlugin extends ControllerEnvironment impleme
 	}
 
 	private final Controller[] controllers;
-	private final List<WinTabDevice> active_devices = new ArrayList<>();
+	private final List<WinTabDevice> active_devices = new ArrayList<WinTabDevice>();
 	private final WinTabContext winTabContext;
 
 	public WinTabEnvironmentPlugin() {

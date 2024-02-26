@@ -66,7 +66,7 @@ public class WinTabComponent extends AbstractComponent {
 	}
 
 	public static List<WinTabComponent> createComponents(WinTabContext context, int parentDevice, int axisId, int[] axisRanges) {
-		List<WinTabComponent> components = new ArrayList<>();
+		List<WinTabComponent> components = new ArrayList<WinTabComponent>();
 		Identifier id;
 		switch(axisId) {
 		case WinTabDevice.XAxis:
@@ -111,7 +111,7 @@ public class WinTabComponent extends AbstractComponent {
 	}
 
 	public static Collection<WinTabButtonComponent> createButtons(WinTabContext context, int deviceIndex, int numberOfButtons) {
-		List<WinTabButtonComponent> buttons = new ArrayList<>();
+		List<WinTabButtonComponent> buttons = new ArrayList<WinTabButtonComponent>();
 		Identifier id;
 		
 		for(int i=0;i<numberOfButtons;i++) {
@@ -120,7 +120,7 @@ public class WinTabComponent extends AbstractComponent {
 				Field idField = buttonIdClass.getField("_" + i);
 				id = (Identifier)idField.get(null);
 				buttons.add(new WinTabButtonComponent(context, deviceIndex, id.getName(), id, i));
-			} catch (SecurityException|NoSuchFieldException|IllegalArgumentException|IllegalAccessException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -177,7 +177,7 @@ public class WinTabComponent extends AbstractComponent {
 
 	public static Collection<WinTabCursorComponent> createCursors(WinTabContext context, int deviceIndex, String[] cursorNames) {
 		Identifier id;
-		List<WinTabCursorComponent> cursors = new ArrayList<>();
+		List<WinTabCursorComponent> cursors = new ArrayList<WinTabCursorComponent>();
 		
 		for(int i=0;i<cursorNames.length;i++) {
 			if(cursorNames[i].matches("Puck")) {

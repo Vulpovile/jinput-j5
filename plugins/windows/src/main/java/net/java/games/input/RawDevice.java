@@ -284,10 +284,10 @@ final class RawDevice {
 	}
 
 	public void setBufferSize(int size) {
-		keyboard_events = new DataQueue<>(size, RawKeyboardEvent.class);
-		mouse_events = new DataQueue<>(size, RawMouseEvent.class);
-		processed_keyboard_events = new DataQueue<>(size, RawKeyboardEvent.class);
-		processed_mouse_events = new DataQueue<>(size, RawMouseEvent.class);
+		keyboard_events = new DataQueue<RawKeyboardEvent>(size, RawKeyboardEvent.class);
+		mouse_events = new DataQueue<RawMouseEvent>(size, RawMouseEvent.class);
+		processed_keyboard_events = new DataQueue<RawKeyboardEvent>(size, RawKeyboardEvent.class);
+		processed_mouse_events = new DataQueue<RawMouseEvent>(size, RawMouseEvent.class);
 	}
 
 	public int getType() {

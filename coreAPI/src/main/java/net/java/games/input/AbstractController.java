@@ -68,7 +68,7 @@ public abstract class AbstractController implements Controller {
 	/**
 	 * Map from Component.Identifiers to Components
 	 */
-	private final Map<Component.Identifier, Component> id_to_components = new HashMap<>();
+	private final Map<Component.Identifier, Component> id_to_components = new HashMap<Component.Identifier, Component>();
 
 	private EventQueue event_queue = new EventQueue(EVENT_QUEUE_DEPTH);
     

@@ -40,7 +40,7 @@ import java.util.ArrayList;
  * is run on a single thread.
  */
 final class LinuxDeviceThread extends Thread {
-	private final List<LinuxDeviceTask> tasks = new ArrayList<>();
+	private final List<LinuxDeviceTask> tasks = new ArrayList<LinuxDeviceTask>();
 	
 	public LinuxDeviceThread() {
 		setDaemon(true);

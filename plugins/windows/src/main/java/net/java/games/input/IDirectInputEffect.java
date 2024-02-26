@@ -38,13 +38,14 @@
  *****************************************************************************/
 package net.java.games.input;
 
+import java.io.Closeable;
 import java.io.IOException;
 
 /** Java wrapper for IDirectInputEffect
  * @author elias
  * @version 1.0
  */
-final class IDirectInputEffect implements Rumbler,AutoCloseable {
+final class IDirectInputEffect implements Rumbler,Closeable {
 	private final long address;
 	private final DIEffectInfo info;
 	private boolean released;

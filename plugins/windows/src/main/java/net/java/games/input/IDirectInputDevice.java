@@ -32,6 +32,7 @@
  *****************************************************************************/
 package net.java.games.input;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ import java.util.Arrays;
  * @author elias
  * @version 1.0
  */
-final class IDirectInputDevice implements AutoCloseable {
+final class IDirectInputDevice implements Closeable {
 	public final static int GUID_XAxis = 1;
 	public final static int GUID_YAxis = 2;
 	public final static int GUID_ZAxis = 3;
@@ -195,11 +196,11 @@ final class IDirectInputDevice implements AutoCloseable {
 	private final int dev_subtype;
 	private final String instance_name;
 	private final String product_name;
-	private final List<DIDeviceObject> objects = new ArrayList<>();
-	private final List<DIEffectInfo> effects = new ArrayList<>();
-	private final List<Rumbler> rumblers = new ArrayList<>();
+	private final List<DIDeviceObject> objects = new ArrayList<DIDeviceObject>();
+	private final List<DIEffectInfo> effects = new ArrayList<DIEffectInfo>();
+	private final List<Rumbler> rumblers = new ArrayList<Rumbler>();
 	private final int[] device_state;
-	private final Map<DIDeviceObject,DIComponent> object_to_component = new HashMap<>();
+	private final Map<DIDeviceObject,DIComponent> object_to_component = new HashMap<DIDeviceObject, DIComponent>();
 	private final boolean axes_in_relative_mode;
 
 
@@ -503,7 +504,7 @@ final class IDirectInputDevice implements AutoCloseable {
 		int res = nSetBufferSize(address, size);
 		if (res != DI_OK && res != DI_PROPNOEFFECT && res != DI_POLLEDDEVICE)
 			throw new IOException("Failed to set buffer size (" + Integer.toHexString(res) + ")");
-		queue = new DataQueue<>(size, DIDeviceObjectData.class);
+		queue = new DataQueue<DIDeviceObjectData>(size, DIDeviceObjectData.class);
 		queue.position(queue.limit());
 		acquire();
 	}

@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 /**
  * @author elias
+ * TODO Vulpovile: why not just implement or extend Closable???
  */
 interface LinuxDevice {
 	void close() throws IOException;

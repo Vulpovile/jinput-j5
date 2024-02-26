@@ -87,7 +87,7 @@ public final class DirectInputEnvironmentPlugin extends ControllerEnvironment im
 	}
 
 	private final Controller[] controllers;
-	private final List<IDirectInputDevice> active_devices = new ArrayList<>();
+	private final List<IDirectInputDevice> active_devices = new ArrayList<IDirectInputDevice>();
 	private final DummyWindow window;
 
 	/** Creates new DirectInputEnvironment */
@@ -123,7 +123,7 @@ public final class DirectInputEnvironmentPlugin extends ControllerEnvironment im
 
 	private Component[] createComponents(IDirectInputDevice device, boolean map_mouse_buttons) {
 		List<DIDeviceObject> device_objects = device.getObjects();
-		List<DIComponent> controller_components = new ArrayList<>();
+		List<DIComponent> controller_components = new ArrayList<DIComponent>();
 		for (int i = 0; i < device_objects.size(); i++) {
 			DIDeviceObject device_object = device_objects.get(i);
 			Component.Identifier identifier = device_object.getIdentifier();
@@ -183,7 +183,7 @@ public final class DirectInputEnvironmentPlugin extends ControllerEnvironment im
 	}
 	
 	private Controller[] enumControllers(DummyWindow window) throws IOException {
-		List<Controller> controllers = new ArrayList<>();
+		List<Controller> controllers = new ArrayList<Controller>();
 		IDirectInput dinput = new IDirectInput(window);
 		try {
 			List<IDirectInputDevice> devices = dinput.getDevices();

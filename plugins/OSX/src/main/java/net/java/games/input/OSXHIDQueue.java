@@ -41,7 +41,7 @@ import java.util.HashMap;
 * @version 1.0
 */
 final class OSXHIDQueue {
-	private final Map<Long,OSXComponent> map = new HashMap<>();
+	private final Map<Long,OSXComponent> map = new HashMap<Long, OSXComponent>();
 	private final long queue_address;
 
 	private boolean released;

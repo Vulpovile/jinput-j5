@@ -53,7 +53,7 @@ public class DirectAndRawInputEnvironmentPlugin extends ControllerEnvironment {
 		if(controllers == null) {
 			boolean rawKeyboardFound = false;
 			boolean rawMouseFound = false;
-			List<Controller> tempControllers = new ArrayList<>();
+			List<Controller> tempControllers = new ArrayList<Controller>();
 			Controller[] dinputControllers = dinputPlugin.getControllers();
 			Controller[] rawControllers = rawPlugin.getControllers();
 			for(int i=0;i<rawControllers.length;i++) {

@@ -121,7 +121,7 @@ public final class RawInputEnvironmentPlugin extends ControllerEnvironment imple
 	}
 	
 	private static void createControllersFromDevices(RawInputEventQueue queue, List<Controller> controllers, List<RawDevice> devices, List<SetupAPIDevice> setupapi_devices) throws IOException {
-		List<RawDevice> active_devices = new ArrayList<>();
+		List<RawDevice> active_devices = new ArrayList<RawDevice>();
 		for (int i = 0; i < devices.size(); i++) {
 			RawDevice device = devices.get(i);
 			SetupAPIDevice setupapi_device = lookupSetupAPIDevice(device.getName(), setupapi_devices);
@@ -144,8 +144,8 @@ public final class RawInputEnvironmentPlugin extends ControllerEnvironment imple
 	private static native void enumerateDevices(RawInputEventQueue queue, List<RawDevice> devices) throws IOException;
 
 	private Controller[] enumControllers(RawInputEventQueue queue) throws IOException {
-		List<Controller> controllers = new ArrayList<>();
-		List<RawDevice> devices = new ArrayList<>();
+		List<Controller> controllers = new ArrayList<Controller>();
+		List<RawDevice> devices = new ArrayList<RawDevice>();
 		enumerateDevices(queue, devices);
 		List<SetupAPIDevice> setupapi_devices = enumSetupAPIDevices();
 		createControllersFromDevices(queue, controllers, devices, setupapi_devices);
@@ -178,7 +178,7 @@ public final class RawInputEnvironmentPlugin extends ControllerEnvironment imple
 	 * RDP devices.
 	 */
 	private static List<SetupAPIDevice> enumSetupAPIDevices() throws IOException {
-		List<SetupAPIDevice> devices = new ArrayList<>();
+		List<SetupAPIDevice> devices = new ArrayList<SetupAPIDevice>();
 		nEnumSetupAPIDevices(getKeyboardClassGUID(), devices);
 		nEnumSetupAPIDevices(getMouseClassGUID(), devices);
 		return devices;

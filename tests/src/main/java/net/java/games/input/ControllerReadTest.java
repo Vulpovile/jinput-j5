@@ -41,7 +41,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -53,11 +52,11 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 public final class ControllerReadTest extends JFrame {
-	@Serial
+
 	private static final long serialVersionUID = -7129976919159465311L;
 
 	private abstract static class AxisPanel extends JPanel {
-		@Serial
+
 		private static final long serialVersionUID = -2117191506803328790L;
 		transient Component axis;
 		float data;
@@ -82,7 +81,7 @@ public final class ControllerReadTest extends JFrame {
 	}
 
 	private static class DigitalAxisPanel extends AxisPanel {
-		@Serial
+
 		private static final long serialVersionUID = -4006900519933869168L;
 		JLabel digitalState = new JLabel("<unread>");
 
@@ -107,7 +106,7 @@ public final class ControllerReadTest extends JFrame {
 	}
 
 	private static class DigitalHatPanel extends AxisPanel {
-		@Serial
+
 		private static final long serialVersionUID = -3293100130201231029L;
 		JLabel digitalState = new JLabel("<unread>");
 
@@ -152,7 +151,7 @@ public final class ControllerReadTest extends JFrame {
 		}
 	}
 	private static class AnalogAxisPanel extends AxisPanel {
-		@Serial
+
 		private static final long serialVersionUID = -3220244985697453835L;
 		JLabel analogState = new JLabel("<unread>");
 
@@ -173,10 +172,10 @@ public final class ControllerReadTest extends JFrame {
 
 
 	private static class ControllerWindow extends JFrame {
-		@Serial
+
 		private static final long serialVersionUID = 5812903945250431578L;
 		transient Controller ca;
-		transient List<AxisPanel> axisList = new ArrayList<>();
+		transient List<AxisPanel> axisList = new ArrayList<AxisPanel>();
 		boolean disabled = false;
 
 		public ControllerWindow(JFrame frame,Controller ca){
@@ -255,7 +254,7 @@ public final class ControllerReadTest extends JFrame {
 	}
 
 	static final long HEARTBEATMS =100; // 10th of a second
-	transient List<ControllerWindow> controllers = new ArrayList<>();
+	transient List<ControllerWindow> controllers = new ArrayList<ControllerWindow>();
 
 	public ControllerReadTest() {
 		super("Controller Read Test. Version: " + Version.getVersion());
@@ -265,7 +264,8 @@ public final class ControllerReadTest extends JFrame {
 			makeController(ca[i]);
 		}
 
-		new Thread(() ->{
+		new Thread(){
+			public void run(){
 				try {
 					while(true){
 						for(Iterator<ControllerWindow> i=controllers.iterator();i.hasNext();){
@@ -281,7 +281,8 @@ public final class ControllerReadTest extends JFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-		}).start();
+			}
+		}.start();
 		pack();
 		setSize(400,400);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -25,6 +25,7 @@
  */
 package net.java.games.input;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
@@ -34,8 +35,8 @@ import java.util.ArrayList;
 /**
  * @author elias
  */
-final class LinuxEventDevice implements LinuxDevice,AutoCloseable {
-	private final Map<LinuxAxisDescriptor, LinuxComponent> component_map = new HashMap<>();
+final class LinuxEventDevice implements LinuxDevice,Closeable {
+	private final Map<LinuxAxisDescriptor, LinuxComponent> component_map = new HashMap<LinuxAxisDescriptor, LinuxComponent>();
 	private final Rumbler[] rumblers;
 	private final long fd;
 	private final String name;
@@ -158,7 +159,7 @@ final class LinuxEventDevice implements LinuxDevice,AutoCloseable {
 	}
 
 	private final Rumbler[] enumerateRumblers() {
-		List<Rumbler> rumblers = new ArrayList<>();
+		List<Rumbler> rumblers = new ArrayList<Rumbler>();
 		try {
 			int num_effects = getNumEffects();
 			if (num_effects <= 0)
@@ -278,7 +279,7 @@ final class LinuxEventDevice implements LinuxDevice,AutoCloseable {
 	}
 
 	private final List<LinuxEventComponent> getDeviceComponents() throws IOException {
-		List<LinuxEventComponent> components = new ArrayList<>();
+		List<LinuxEventComponent> components = new ArrayList<LinuxEventComponent>();
 		byte[] evtype_bits = getEventTypeBits();
 		if (isBitSet(evtype_bits, NativeDefinitions.EV_KEY))
 			addKeys(components);

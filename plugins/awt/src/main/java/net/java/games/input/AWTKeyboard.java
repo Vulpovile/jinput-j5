@@ -40,7 +40,7 @@ import java.util.List;
  * @author elias
  */
 final class AWTKeyboard extends Keyboard implements AWTEventListener {
-	private final List<KeyEvent> awt_events = new ArrayList<>();
+	private final List<KeyEvent> awt_events = new ArrayList<KeyEvent>();
 	private Event[] processed_events;
 	private int processed_events_index;
     
@@ -51,7 +51,7 @@ final class AWTKeyboard extends Keyboard implements AWTEventListener {
 	}
 
 	private static Component[] createComponents() {
-		List<Component> components = new ArrayList<>();
+		List<Component> components = new ArrayList<Component>();
 		Field[] vkey_fields = KeyEvent.class.getFields();
 		for (int i = 0; i < vkey_fields.length; i++) {
 			Field vkey_field = vkey_fields[i];

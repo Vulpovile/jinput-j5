@@ -82,7 +82,7 @@ public abstract class ControllerEnvironment {
     /**
      * List of controller listeners
      */
-    protected final ArrayList<ControllerListener> controllerListeners = new ArrayList<>();
+    protected final ArrayList<ControllerListener> controllerListeners = new ArrayList<ControllerListener>();
     
     /**
      * Protected constructor for subclassing.

@@ -40,7 +40,7 @@ import java.util.HashMap;
 * @version 1.0
 */
 final class ButtonUsage implements Usage {
-	private final static Map<Integer, ButtonUsage> map = new HashMap<>();
+	private final static Map<Integer, ButtonUsage> map = new HashMap<Integer, ButtonUsage>();
 	
 	private final int button_id;
 
